@@ -1,0 +1,10 @@
+body {
+  margin: 0;
+  padding: 10px;
+  font-family: sans-serif;
+}
+
+.notification-container {
+    bottom: 15px;
+    top: auto !important;
+}
