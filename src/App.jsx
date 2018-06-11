@@ -13,17 +13,24 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Auth from './components/Auth.jsx'
 import TopMenu from './components/TopMenu.jsx'
 
+import Home from './components/Home.jsx'
+import ProfilePage from './components/ProfilePage.jsx'
+
 export default () =>
   <Provider store={store}>
-    <MuiThemeProvider muiTheme={getMuiTheme()}>
-      <Router>
+    <Router>
+      <MuiThemeProvider muiTheme={getMuiTheme()}>
         <div>
           <CssBaseline />
           <NotificationContainer />
           <Auth>
             <TopMenu />
+            <div style={{ paddingTop: '56px' }}>
+              <Route exact path='/' component={Home} />
+              <Route path='/profile' component={ProfilePage} />
+            </div>
           </Auth>
         </div>
-      </Router>
-    </MuiThemeProvider>
+      </MuiThemeProvider>
+    </Router>
   </Provider>
