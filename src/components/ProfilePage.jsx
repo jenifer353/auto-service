@@ -40,15 +40,15 @@ const ProfilePage = ({ classes }) =>
       <Card className={classes.card}>
         <div className={classes.details}>
           <CardContent className={classes.content}>
-            <Typography variant="headline">Іван Іванов</Typography>
+            <Typography variant="headline">Автосервіс Шина</Typography>
             <Typography variant="subheading" color="textSecondary">
-              +380 936532964
+              м. Рівне, вул. Степана Бандери, буд. 42
             </Typography>
           </CardContent>
         </div>
         <CardMedia
           className={classes.cover}
-          image="http://icons.iconarchive.com/icons/paomedia/small-n-flat/256/user-male-icon.png"
+          image="http://asp-1c.ru/upload/medialibrary/cf5/tire_service_icon.jpg"
           title="Live from space album cover"
         />
       </Card>
@@ -62,12 +62,12 @@ const ProfilePage = ({ classes }) =>
                 I
               </Avatar>
             }
-            title="Ігор Нестеренко"
+            title="Іван Іванов"
             subheader="Червень 9, 2018"
           />
         <CardContent>
             <Typography paragraph>
-                Все вчасно, квартира співпадає з фото. Обслуговуванням задоволений!
+                Після ремонту двигун працює як новий, ніяких посторонніх звуків. Обслуговуванням задоволений!
               </Typography>
             </CardContent>
       </Card>

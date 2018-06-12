@@ -7,10 +7,10 @@ import api from './api'
 
 mongoose.Promise = Promise
 const __dirname = path.dirname(new URL(import.meta.url).pathname)
-const port = config.port || 4243
+const port = config.port || 4223
 
 mongoose
-    .connect(config.mongo || 'mongodb://localhost/realty-agency')
+    .connect(config.mongo || 'mongodb://localhost/autoservice')
     .catch((e) => {
         console.error('Connection error', e)
         process.exit(0)

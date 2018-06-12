@@ -12,8 +12,8 @@ import ListItemText from '@material-ui/core/ListItemText'
 import MenuIcon from '@material-ui/icons/Menu'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import HomeIcon from '@material-ui/icons/Home'
-import FolderIcon from '@material-ui/icons/Folder'
-import FolderSpecialIcon from '@material-ui/icons/FolderSpecial'
+import SmsIcon from '@material-ui/icons/Sms'
+import CarIcon from '@material-ui/icons/LocalCarWash'
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser'
 import MenuItem from '@material-ui/core/MenuItem'
 import { Link } from 'react-router-dom'
@@ -71,7 +71,7 @@ class TopMenu extends React.Component {
                 break
 
             case '/profile':
-                title = 'Профіль'
+                title = 'Заявки'
                 break
 
             default:
@@ -103,9 +103,9 @@ class TopMenu extends React.Component {
                         getContentAnchorEl={null}
                         open={openMainMenu}
                         onClose={this.handleClose} >
-                        { menuItem('/', HomeIcon, 'Оголошення') }
-                        { menuItem('/own-realty', FolderIcon, 'Мої оголошення') }
-                        { menuItem('/own-booking', FolderSpecialIcon, 'Мої бронювання') }
+                        { menuItem('/', HomeIcon, 'Список сервісів') }
+                        { menuItem('/requests', SmsIcon, 'Заявки') }
+                        { menuItem('/current', CarIcon, 'Поточні роботи') }
                     </Menu>
 
                     <Typography variant="title" color="inherit" >{title}</Typography>
@@ -127,7 +127,7 @@ class TopMenu extends React.Component {
                             getContentAnchorEl={null}
                             open={openProfileMenu}
                             onClose={this.handleClose} >
-                            <MenuItem component={Link} to='/profile' >Мій профіль</MenuItem>
+                            <MenuItem component={Link} to='/profile' >Профіль</MenuItem>
                             <MenuItem onClick={logout}>Вийти</MenuItem>
                         </Menu>
                     </div>
