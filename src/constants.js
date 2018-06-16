@@ -8,6 +8,12 @@ const generatePromise = (c) => {
     generate(c)
 }
 
+const generateModel = (c) => {
+    generatePromise(`LOAD_${c}`)
+    generatePromise(`SAVE_${c}`)
+    generatePromise(`REMOVE_${c}`)
+}
+
 generate('SET_AUTH_TOKEN')
 generate('UNSET_AUTH_TOKEN')
-generatePromise('GET_CONFIG')
+generateModel('REALTY')

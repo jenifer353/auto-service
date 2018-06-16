@@ -1,4 +1,7 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { load as loadItems } from '../actions/realty'
 import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
@@ -6,26 +9,23 @@ import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
 
-const data = [
-    {
-        image: 'http://www.book-a-flat.com/images/paris-salon-2.jpg',
-        name: 'Двокімнатна квартира',
-        description: 'Тестовий опис квартири'
-    },
-    {
-        image: 'https://www.mcdonaldjoneshomes.com.au/sites/default/files/designs/feature_images/granny-flat-9-living-kitchen-alfresco-r.jpg',
-        name: 'Великий дім',
-        description: 'Тестовий опис дому'
-    }
-]
+const defaultImage = 'https://newhomelistingservice.com/assets/default_logo/large_emg_default-04cb60da994cb5a009f5f7640a7881a7b035e7bddba555c218b5e084b2a64f93.jpg'
 
-const Home = () =>
-    <div>
-        {data.map(flat =>
-          <Card>
+class Home extends Component {
+  componentWillMount() {
+    const { loadingItems, lastLoaded, loadItems } = this.props
+    if ( !loadingItems && !lastLoaded ) loadItems()
+  }
+
+  render() {
+    const { items, loadingItems, lastLoaded } = this.props
+    return (
+      <div>
+        {items.map(flat =>
+          <Card key={flat._id}>
             <CardMedia
               style={{ paddingBottom: '150px' }}
-              image={flat.image}
+              image={flat.image || defaultImage}
               title="Contemplative Reptile"
             />
             <CardContent>
@@ -45,7 +45,13 @@ const Home = () =>
               </Button>
             </CardActions>
           </Card>
-      )}
-    </div>
+        )}
+      </div>
+    )
+  }
+}
 
-export default Home
+export default connect(
+  (store) => store.realty,
+  (dispatch) => bindActionCreators({ loadItems }, dispatch)
+)(Home)
