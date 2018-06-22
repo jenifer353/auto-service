@@ -28,7 +28,7 @@ export default (state = initial, action) => {
         }
 
         case LOAD_REALTY_REJECTED: {
-            const error = action.payload.response.data.error
+            const error = action.payload.response.data ? action.payload.response.data.error : 'Server error'
             NotificationManager.error(error, 'Список оголошень не вдалось завантажити')
             return {...state, loadingItems: false }
         }

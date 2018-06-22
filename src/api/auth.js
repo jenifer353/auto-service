@@ -1,7 +1,4 @@
-import Api from '../helpers/api'
-const api = new Api('auth')
+import { post } from '../helpers/api'
 
-api.post('login')
-api.put('register')
-
-export default api.getExports()
+export const login = (data) => post('/auth/login')
+export const register = (data) => post('/auth/register')

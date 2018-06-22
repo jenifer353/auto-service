@@ -7,6 +7,25 @@ import config from '../config.json'
 const router = express.Router()
 export default router
 
+export const withAuth = async (req, res, next) => {
+    const err = (details = 'No token provided') =>
+    res.status(401).send({
+        details,
+        error: 'Authorization required'
+    })
+    const token = req.headers.authorization
+    if (!token) return err()
+
+    try {
+        const data = jwt.verify(token, config.secret)
+        req.uid = data.id
+        next()
+    } catch(e) {
+        console.error(e)
+        err(e.toString())
+    }
+}
+
 const createToken = (id) =>
     jwt.sign({id: id}, config.secret, {expiresIn: 43200000})
 

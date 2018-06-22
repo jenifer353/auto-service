@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { setToken } from '../actions/auth.js'
-import authApi from '../api/auth.js'
+import { login, register } from '../api/auth.js'
 import LoginForm from './LoginForm.jsx'
 import RegistrationForm from './RegistrationForm.jsx'
 import Paper from '@material-ui/core/Paper'
@@ -39,11 +39,11 @@ class Auth extends Component {
                 </Tabs>
 
                 {tab === 0 ? <LoginForm
-                    onSubmit={authApi.login}
+                    onSubmit={login}
                     onSubmitSuccess={this.onSuccess} /> : null}
 
                 {tab === 1 ? <RegistrationForm
-                    onSubmit={authApi.register}
+                    onSubmit={register}
                     onSubmitSuccess={this.onSuccess} /> : null}
             </Paper>
         )
