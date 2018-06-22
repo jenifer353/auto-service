@@ -14,7 +14,6 @@ import AccountCircle from '@material-ui/icons/AccountCircle'
 import HomeIcon from '@material-ui/icons/Home'
 import FolderIcon from '@material-ui/icons/Folder'
 import FolderSpecialIcon from '@material-ui/icons/FolderSpecial'
-import VerifiedUserIcon from '@material-ui/icons/VerifiedUser'
 import MenuItem from '@material-ui/core/MenuItem'
 import { Link } from 'react-router-dom'
 import Menu from '@material-ui/core/Menu'
@@ -30,7 +29,7 @@ const styles = theme => ({
   },
   primary: {},
   icon: {}
-});
+})
 
 class TopMenu extends React.Component {
     state = {
@@ -56,7 +55,7 @@ class TopMenu extends React.Component {
         const openMainMenu = menu === 'main'
         const openProfileMenu = menu === 'profile'
         let title = 'default'
-        console.log(location)
+
         switch(location.pathname) {
             case '/':
                 title = 'Оголошення'
@@ -79,7 +78,12 @@ class TopMenu extends React.Component {
         }
 
         const menuItem = (to, Icon, title) =>
-            <MenuItem component={Link} to={to} className={classes.menuItem}>
+            <MenuItem
+                to={to}
+                onClick={this.handleClose}
+                selected={location.pathname === to}
+                component={Link}
+                className={classes.menuItem} >
                 <ListItemIcon><Icon className={classes.icon} /></ListItemIcon>
                 <ListItemText classes={{ primary: classes.primary }} inset primary={title} />
             </MenuItem>
@@ -127,7 +131,11 @@ class TopMenu extends React.Component {
                             getContentAnchorEl={null}
                             open={openProfileMenu}
                             onClose={this.handleClose} >
-                            <MenuItem component={Link} to='/profile' >Мій профіль</MenuItem>
+                            <MenuItem
+                                selected={location.pathname === '/profile'}
+                                onClose={this.handleClose}
+                                component={Link}
+                                to='/profile' >Мій профіль</MenuItem>
                             <MenuItem onClick={logout}>Вийти</MenuItem>
                         </Menu>
                     </div>
@@ -137,6 +145,6 @@ class TopMenu extends React.Component {
     }
 }
 
-export default connect(null, (dispatch) => ({
+export default withRouter(connect(null, (dispatch) => ({
     logout: () => dispatch(unsetToken())
-}))(withRouter(withStyles(styles)(TopMenu)))
+}))(withStyles(styles)(TopMenu)))
