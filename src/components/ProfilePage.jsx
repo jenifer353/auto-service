@@ -14,7 +14,6 @@ import Avatar from '@material-ui/core/Avatar'
 import IconButton from '@material-ui/core/IconButton'
 
 
-
 const styles = theme => ({
   card: {
     display: 'flex'
@@ -52,7 +51,6 @@ const ProfilePage = ({ classes }) =>
           title="Live from space album cover"
         />
       </Card>
-
 
       <h1>Відгуки</h1>
       <Card>

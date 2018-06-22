@@ -133,7 +133,7 @@ class TopMenu extends React.Component {
                             onClose={this.handleClose} >
                             <MenuItem
                                 selected={location.pathname === '/profile'}
-                                onClose={this.handleClose}
+                                onClick={this.handleClose}
                                 component={Link}
                                 to='/profile' >Мій профіль</MenuItem>
                             <MenuItem onClick={logout}>Вийти</MenuItem>

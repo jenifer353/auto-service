@@ -5,14 +5,14 @@ import { TextField } from 'redux-form-material-ui'
 import Button from '@material-ui/core/Button'
 
 const Form = ({ handleSubmit, submitting }) =>
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} style={{ padding: '25px'}}>
         <Field
-            name='username'
-            type='text'
+            name='email'
+            type='email'
             component={TextField}
-            autoComplete='current-user'
-            label='Логін'
-            placeholder='Логін'
+            autoComplete='current-email'
+            label='Електронна пошта'
+            placeholder='Електронна пошта'
             fullWidth />
         <Field
             name='password'
@@ -23,6 +23,7 @@ const Form = ({ handleSubmit, submitting }) =>
             placeholder='Пароль'
             fullWidth />
         <Button
+            style={{ marginTop: '20px' }}
             type='submit'
             disabled={submitting}
             variant='raised'

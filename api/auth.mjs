@@ -11,8 +11,8 @@ const createToken = (id) =>
     jwt.sign({id: id}, config.secret, {expiresIn: 43200000})
 
 router.post('/login/', async (req, res) => {
-    const { username, password } = req.body
-    const user = await Users.findOne({username})
+    const { email, password } = req.body
+    const user = await Users.findOne({email})
 
     if (!user)
         return res.status(400).send({error: 'Такого користувача не знайдено'})
@@ -25,16 +25,29 @@ router.post('/login/', async (req, res) => {
 })
 
 router.put('/register/', async (req, res) => {
-    const { username, password, confirmPassword } = req.body
-    const user = await Users.findOne({username})
+    try {
+        const {
+            email,
+            name,
+            password,
+            confirmPassword
+        } = req.body
+        const user = await Users.findOne({email})
 
-    if (user)
-        return res.status(400).send({error: 'Користувач з таким іменем уже існує'})
+        if (user)
+            return res.status(400).send({error: 'Користувач з такою електронною адресою вже існує'})
 
-    if (password !== confirmPassword)
-        return res.status(400).send({error: 'Паролі не співпадають'})
+        if (!name)
+            return res.status(400).send({error: "Ім'я не може бути пустим"})
 
-    const newUser = new Users({ username, password: passwordHash.generate(password) })
-    const saved = await newUser.save()
-    res.send({token: createToken(saved._id)})
+        if (password !== confirmPassword)
+            return res.status(400).send({error: 'Паролі не співпадають'})
+
+        const newUser = new Users({ name, email, password: passwordHash.generate(password) })
+        const saved = await newUser.save()
+        res.send({token: createToken(saved._id)})
+    } catch(e) {
+        console.error(e)
+        res.status(500).send({ error: e.toString() })
+    }
 })
