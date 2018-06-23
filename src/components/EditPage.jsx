@@ -89,7 +89,8 @@ class EditPage extends Component {
   render() {
     const handleSubmit = (data) => {
       const { images } = this.state
-      const initialImages = this.props.initialValues.images || []
+      const { initialValues } = this.props
+      const initialImages = (initialValues && initialValues.images) || []
       const id = this.props.match.params.id
       const item = {
         ...data,
@@ -101,7 +102,7 @@ class EditPage extends Component {
 
     const { submitting, initialValues } = this.props
     if (this.state.loading) return <LinearProgress />
-    const initialImages = initialValues.images || []
+    const initialImages = (initialValues && initialValues.images) || []
     return (
       <Paper>
         <Form
