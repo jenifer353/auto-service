@@ -1,4 +1,3 @@
-import axios from 'axios'
 import * as reviewsApi from '../api/reviews'
 import {
     LOAD_REVIEWS_ABOUT

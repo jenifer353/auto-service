@@ -1,4 +1,3 @@
-import axios from 'axios'
 import * as usersApi from '../api/users'
 import {
     LOAD_USERS,

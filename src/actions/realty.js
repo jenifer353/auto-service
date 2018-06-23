@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { loadAll, loadOwn as own } from '../api/realty'
 import { LOAD_REALTY, LOAD_OWN_REALTY } from '../constants'
 

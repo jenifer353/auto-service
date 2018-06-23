@@ -6,7 +6,6 @@ import {
     LOAD_OWN_REALTY_FULFILLED,
     LOAD_OWN_REALTY_REJECTED
 } from '../constants'
-import { getToken, setToken, unsetToken } from '../helpers/api'
 import { NotificationManager } from 'react-notifications'
 
 export const initial = {
