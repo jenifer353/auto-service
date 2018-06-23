@@ -23,7 +23,7 @@ export const initial = {
 const addById = (state, items) => {
     const obj = {}
     items.forEach(i => obj[i._id] = i)
-    return {...state.byId, obj}
+    return {...state.byId, ...obj}
 }
 
 export default (state = initial, action) => {
