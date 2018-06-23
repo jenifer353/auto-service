@@ -7,6 +7,7 @@ import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Button from '@material-ui/core/Button'
 import CardActions from '@material-ui/core/CardActions'
+import { Link } from 'react-router-dom'
 
 
 class OwnRealty extends Component {
@@ -32,7 +33,13 @@ class OwnRealty extends Component {
       <div>
         <AppBar position="static" color="default">
           <Toolbar>
-            <Button variant="outlined" color="primary">Додати оголошення</Button>
+            <Button
+              variant="outlined"
+              color="primary"
+              component={Link}
+              to='/edit-realty/new'>
+              Додати оголошення
+            </Button>
           </Toolbar>
         </AppBar>
 

@@ -73,6 +73,14 @@ class TopMenu extends React.Component {
                 title = 'Профіль'
                 break
 
+            case '/edit-realty/new':
+                title = 'Нове оголошення'
+                break
+
+            case '/edit-realty':
+                title = 'Редагування оголошення'
+                break
+
             default:
                 title = '???'
         }

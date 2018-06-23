@@ -1,6 +1,5 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
-import { loginForm as validate } from '../helpers/validation'
 import { TextField } from 'redux-form-material-ui'
 import Button from '@material-ui/core/Button'
 
@@ -32,4 +31,4 @@ const Form = ({ handleSubmit, submitting }) =>
         </Button>
     </form>
 
-export default reduxForm({form: 'loginForm', validate})(Form)
+export default reduxForm({form: 'loginForm'})(Form)

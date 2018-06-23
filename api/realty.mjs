@@ -5,7 +5,7 @@ const router = express.Router()
 export default router
 
 router.post('/', async (req, res) => {
-    const { image, name, description, _id } = req.body
+    const { images, name, description, _id } = req.body
     let item
 
     if (!name || !description) {
@@ -16,10 +16,14 @@ router.post('/', async (req, res) => {
 
     if (_id) {
         item = await Realty.findOne({_id})
+        if (item.user.toString() !== req.uid.toString()) {
+            res.status(401).send({ error: "Access error" })
+            return
+        }
         item.name = name
-        item.image = image
+        item.images = images
         item.description = description
-    } else item = new Realty({ image, name, description, user: req.uid })
+    } else item = new Realty({ images, name, description, user: req.uid })
 
     const saved = await item.save()
     res.send(saved)
