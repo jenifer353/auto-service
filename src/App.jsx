@@ -9,6 +9,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 import Root from './components/Root.jsx'
 import Home from './components/Home.jsx'
+import OwnRealty from './components/OwnRealty.jsx'
 import ProfilePage from './components/ProfilePage.jsx'
 
 export default () =>
@@ -18,6 +19,7 @@ export default () =>
         <Root>
           <Route exact path='/' component={Home} />
           <Route path='/profile' component={ProfilePage} />
+          <Route path='/own-realty' component={OwnRealty} />
         </Root>
       </MuiThemeProvider>
     </Router>
