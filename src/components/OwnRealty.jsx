@@ -3,9 +3,8 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { loadOwn as loadItems } from '../actions/realty'
 import RealtyList from './RealtyList.jsx'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
 import Button from '@material-ui/core/Button'
+import AddIcon from '@material-ui/icons/Add'
 import CardActions from '@material-ui/core/CardActions'
 import { Link } from 'react-router-dom'
 
@@ -31,18 +30,6 @@ class OwnRealty extends Component {
 
     return (
       <div>
-        <AppBar position="static" color="default">
-          <Toolbar>
-            <Button
-              variant="outlined"
-              color="primary"
-              component={Link}
-              to='/edit-realty/new'>
-              Додати оголошення
-            </Button>
-          </Toolbar>
-        </AppBar>
-
         <RealtyList
           buttonsComponent={Buttons}
           loadingItems={loadingItems}
@@ -50,6 +37,15 @@ class OwnRealty extends Component {
           lastLoaded={lastLoaded}
           items={items}>
         </RealtyList>
+        <Button
+            style={{ position: 'absolute', bottom: 20, right: 20 }}
+            variant="fab"
+            color="primary"
+            aria-label="Додати"
+            component={Link}
+            to='/edit-realty/new'>
+          <AddIcon />
+        </Button>
       </div>
     )
   }

@@ -22,7 +22,7 @@ export default class RealtyList extends Component {
     )
 
     return (
-      <Grid>
+      <Grid container spacing={16} >
         { loadingItems && <LinearProgress /> }
         { items &&items.map(item =>
           <RealtyItem
