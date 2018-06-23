@@ -7,10 +7,10 @@ import store from './store'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
-import Root from './components/Root.jsx'
-import Home from './components/Home.jsx'
-import OwnRealty from './components/OwnRealty.jsx'
-import ProfilePage from './components/ProfilePage.jsx'
+import Root from './components/Root'
+import Home from './components/Home'
+import OwnRealty from './components/OwnRealty'
+import ProfilePage from './components/ProfilePage'
 
 export default () =>
   <Provider store={store}>

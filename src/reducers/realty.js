@@ -9,8 +9,8 @@ import {
 import { NotificationManager } from 'react-notifications'
 
 export const initial = {
-    items: [],
-    ownItems: [],
+    items: null,
+    ownItems: null,
     loadingItems: false,
     loadingOwn: false,
     lastLoaded: 0,
