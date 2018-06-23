@@ -14,13 +14,16 @@ class OwnRealty extends Component {
     const {
       loadItems,
       loadingItems,
-      lastLoaded,
       items
     } = this.props
 
     const Buttons = ({ item }) =>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button
+            component={Link}
+            to={`/edit-realty/${item._id}`}
+            size="small"
+            color="primary">
           Редагувати
         </Button>
         <Button size="small" color="secondary">
@@ -34,7 +37,6 @@ class OwnRealty extends Component {
           buttonsComponent={Buttons}
           loadingItems={loadingItems}
           loadItems={loadItems}
-          lastLoaded={lastLoaded}
           items={items}>
         </RealtyList>
         <Button
@@ -54,7 +56,6 @@ class OwnRealty extends Component {
 export default connect(
   ({ realty }) => ({
     loadingItems: realty.loadingOwn,
-    lastLoaded: realty.lastLoadedOwn,
     items: realty.ownItems
   }),
   (dispatch) => bindActionCreators({ loadItems }, dispatch)

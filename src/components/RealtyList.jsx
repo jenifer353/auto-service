@@ -6,8 +6,8 @@ import RealtyItem from './RealtyItem.jsx'
 
 export default class RealtyList extends Component {
   componentWillMount() {
-    const { loadingItems, lastLoaded, loadItems } = this.props
-    if ( !loadingItems && !lastLoaded ) loadItems()
+    const { loadingItems, loadItems } = this.props
+    if ( !loadingItems ) loadItems()
   }
 
   render() {

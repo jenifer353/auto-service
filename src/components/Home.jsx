@@ -12,7 +12,6 @@ class Home extends Component {
     const {
       loadItems,
       loadingItems,
-      lastLoaded,
       items
     } = this.props
 
@@ -32,7 +31,6 @@ class Home extends Component {
           buttonsComponent={Buttons}
           loadingItems={loadingItems}
           loadItems={loadItems}
-          lastLoaded={lastLoaded}
           items={items}>
         </RealtyList>
       </div>
@@ -43,7 +41,6 @@ class Home extends Component {
 export default connect(
   ({ realty }) => ({
     loadingItems: realty.loadingItems,
-    lastLoaded: realty.lastLoaded,
     items: realty.items
   }),
   (dispatch) => bindActionCreators({ loadItems }, dispatch)

@@ -52,3 +52,8 @@ router.get('/own', async (req, res) => {
     const items = await Realty.find({ user: req.uid })
     res.send(items)
 })
+
+router.get('/:id', async (req, res) => {
+    const item = await Realty.findOne({ _id: req.params.id })
+    res.send(item)
+})

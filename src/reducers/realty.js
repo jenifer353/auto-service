@@ -2,6 +2,9 @@ import {
     LOAD_REALTY_PENDING,
     LOAD_REALTY_FULFILLED,
     LOAD_REALTY_REJECTED,
+    LOAD_REALTY_ITEM_PENDING,
+    LOAD_REALTY_ITEM_FULFILLED,
+    LOAD_REALTY_ITEM_REJECTED,
     LOAD_OWN_REALTY_PENDING,
     LOAD_OWN_REALTY_FULFILLED,
     LOAD_OWN_REALTY_REJECTED
@@ -9,12 +12,18 @@ import {
 import { NotificationManager } from 'react-notifications'
 
 export const initial = {
+    byId: {},
     items: null,
     ownItems: null,
+    loadingItem: false,
     loadingItems: false,
-    loadingOwn: false,
-    lastLoaded: 0,
-    lastLoadedOwn: 0
+    loadingOwn: false
+}
+
+const addById = (state, items) => {
+    const obj = {}
+    items.forEach(i => obj[i._id] = i)
+    return {...state.byId, obj}
 }
 
 export default (state = initial, action) => {
@@ -24,11 +33,12 @@ export default (state = initial, action) => {
         }
 
         case LOAD_REALTY_FULFILLED: {
+            const items = action.payload.data
             return {
                 ...state,
+                byId: addById(state, items),
                 loadingItems: false,
-                items: action.payload.data,
-                lastLoaded: Date.now()
+                items: items
             }
         }
 
@@ -43,11 +53,12 @@ export default (state = initial, action) => {
         }
 
         case LOAD_OWN_REALTY_FULFILLED: {
+            const items = action.payload.data
             return {
                 ...state,
+                byId: addById(state, items),
                 loadingOwn: false,
-                ownItems: action.payload.data,
-                lastLoadedOwn: Date.now()
+                ownItems: items
             }
         }
 
@@ -55,6 +66,25 @@ export default (state = initial, action) => {
             const error = action.payload.response.data ? action.payload.response.data.error : 'Server error'
             NotificationManager.error(error, 'Список своїх оголошень не вдалось завантажити')
             return {...state, loadingOwn: false }
+        }
+
+        case LOAD_REALTY_ITEM_PENDING: {
+            return {...state, loadingItem: true}
+        }
+
+        case LOAD_REALTY_ITEM_FULFILLED: {
+            const item = action.payload.data
+            return {
+                ...state,
+                byId: {...state.byId, [item._id]: item},
+                loadingItem: false
+            }
+        }
+
+        case LOAD_REALTY_ITEM_REJECTED: {
+            const error = action.payload.response.data ? action.payload.response.data.error : 'Server error'
+            NotificationManager.error(error, 'Оголошення не вдалось завантажити')
+            return {...state, loadingItem: false }
         }
 
         default: {

@@ -77,7 +77,7 @@ class TopMenu extends React.Component {
                 title = 'Нове оголошення'
                 break
 
-            case '/edit-realty':
+            case (location.pathname.match(/^\/edit-realty\//) || {}).input:
                 title = 'Редагування оголошення'
                 break
 

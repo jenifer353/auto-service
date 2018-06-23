@@ -7,8 +7,7 @@ import { NotificationManager } from 'react-notifications'
 
 export const initial = {
     current: null,
-    loadingCurrent: false,
-    lastLoaded: 0
+    loadingCurrent: false
 }
 
 export default (state = initial, action) => {
@@ -21,8 +20,7 @@ export default (state = initial, action) => {
             return {
                 ...state,
                 loadingCurrent: false,
-                current: action.payload.data,
-                lastLoaded: Date.now()
+                current: action.payload.data
             }
         }
 
