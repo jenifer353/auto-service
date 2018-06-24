@@ -34,7 +34,7 @@ router.post('/login/', async (req, res) => {
     const user = await Users.findOne({email})
 
     if (!user)
-        return res.status(400).send({error: 'Такого користувача не знайдено'})
+        return res.status(400).send({error: 'Невдалий вхід'})
 
     if (!passwordHash.verify(password, user.password))
         return res.status(400).send({error: 'Невірний пароль'})
@@ -47,6 +47,7 @@ router.post('/register/', async (req, res) => {
     try {
         const {
             email,
+            address,
             name,
             password,
             confirmPassword
@@ -54,15 +55,15 @@ router.post('/register/', async (req, res) => {
         const user = await Users.findOne({email})
 
         if (user)
-            return res.status(400).send({error: 'Користувач з такою електронною адресою вже існує'})
+            return res.status(400).send({error: 'Така електронною адресою вже існує'})
 
         if (!name)
-            return res.status(400).send({error: "Ім'я не може бути пустим"})
+            return res.status(400).send({error: "Назва не може бути пустою"})
 
         if (password !== confirmPassword)
             return res.status(400).send({error: 'Паролі не співпадають'})
 
-        const newUser = new Users({ name, email, password: passwordHash.generate(password) })
+        const newUser = new Users({ name, address, email, password: passwordHash.generate(password) })
         const saved = await newUser.save()
         res.send({token: createToken(saved._id)})
     } catch(e) {

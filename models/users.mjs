@@ -7,6 +7,10 @@ const schema = mongoose.Schema({
         unique: true,
         dropDups: true
     },
+    address: {
+        required: true,
+        type: String
+    },
     name: {
         required: true,
         type: String

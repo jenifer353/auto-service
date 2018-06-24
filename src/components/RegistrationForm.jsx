@@ -17,8 +17,15 @@ const Form = ({ handleSubmit, submitting }) =>
             name='name'
             type='text'
             component={TextField}
-            label="Ім'я"
-            placeholder="Ім'я"
+            label="Назва"
+            placeholder="Назва"
+            fullWidth />
+        <Field
+            name='address'
+            type='text'
+            component={TextField}
+            label="Адреса"
+            placeholder="Адреса"
             fullWidth />
         <Field
             name='password'
