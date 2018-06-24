@@ -16,11 +16,7 @@ const generateModel = (c) => {
 
 generate('SET_AUTH_TOKEN')
 generate('UNSET_AUTH_TOKEN')
-generateModel('REALTY')
-generatePromise('LOAD_REALTY_ITEM')
-generatePromise('LOAD_OWN_REALTY')
-generatePromise('LOAD_BOOKED_REALTY')
-generatePromise('BOOK_REALTY')
 generateModel('ACCOUNTS')
+generatePromise('LOAD_SERVICES')
 generatePromise('LOAD_CURRENT')
 generatePromise('LOAD_REVIEWS_ABOUT')

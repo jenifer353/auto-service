@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import Grid from '@material-ui/core/Grid'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import Typography from '@material-ui/core/Typography'
-import RealtyItem from './RealtyItem.jsx'
+import ServiceItem from './ServiceItem.jsx'
 
-export default class RealtyList extends Component {
+export default class ServicesList extends Component {
   componentWillMount() {
     const { loadingItems, loadItems } = this.props
     if ( !loadingItems ) loadItems()
@@ -12,6 +12,8 @@ export default class RealtyList extends Component {
 
   render() {
     const { items, loadingItems, buttonsComponent } = this.props
+    if (loadingItems) return <LinearProgress />
+
     if (items && items.length < 1) return (
       <Typography
         style={{ padding: 30, textAlign: 'center' }}
@@ -25,7 +27,7 @@ export default class RealtyList extends Component {
       <Grid container spacing={16} >
         { loadingItems && <LinearProgress /> }
         { items &&items.map(item =>
-          <RealtyItem
+          <ServiceItem
             buttonsComponent={buttonsComponent}
             key={item._id}
             item={item} />

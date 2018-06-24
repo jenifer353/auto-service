@@ -43,11 +43,12 @@ class Auth extends Component {
     }
 
     render() {
-        const { token, children, currentAccount } = this.props
+        const { token, children, currentAccount, optional } = this.props
         if (token) {
           if (currentAccount) return children
           else return <LinearProgress />
-        }
+        } else if (optional) return children
+
         const { tab, isService } = this.state
         return (
             <Paper style={{ maxWidth: '600px', margin: 'auto', padding: '10px'}}>

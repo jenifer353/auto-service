@@ -10,24 +10,23 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Auth from './components/Auth.jsx'
 import Root from './components/Root'
 import Home from './components/Home'
-import EditPage from './components/EditPage'
-import Requests from './components/Requests'
-import OwnBooking from './components/OwnBooking'
+// import Requests from './components/Requests'
 import ProfilePage from './components/ProfilePage'
 
 const withAuth = (Component) => () =>
   <Auth><Component/></Auth>
+
+const optionalAuth = (Component) => () =>
+  <Auth optional><Component/></Auth>
 
 export default () =>
   <Provider store={store}>
     <Router>
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <Root>
-          <Route exact path='/' component={Home} />
-          <Route path='/edit-realty/:id' component={withAuth(EditPage)} />
+          <Route exact path='/' component={optionalAuth(Home)} />
           <Route path='/profile' component={withAuth(ProfilePage)} />
-          <Route path='/requests' component={withAuth(Requests)} />
-          <Route path='/own-booking' component={withAuth(OwnBooking)} />
+          {/*<Route path='/requests' component={withAuth(Requests)} />*/}
         </Root>
       </MuiThemeProvider>
     </Router>

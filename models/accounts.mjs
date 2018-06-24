@@ -19,6 +19,7 @@ const schema = mongoose.Schema({
         required: true,
         type: String
     },
+    images: [String],
     password: {
         required: true,
         type: String
