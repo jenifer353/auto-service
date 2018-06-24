@@ -30,7 +30,7 @@ const styles = theme => ({
   },
   primary: {},
   icon: {}
-});
+})
 
 class TopMenu extends React.Component {
     state = {
@@ -56,7 +56,7 @@ class TopMenu extends React.Component {
         const openMainMenu = menu === 'main'
         const openProfileMenu = menu === 'profile'
         let title = 'default'
-        console.log(location)
+
         switch(location.pathname) {
             case '/':
                 title = 'Оголошення'
@@ -74,12 +74,25 @@ class TopMenu extends React.Component {
                 title = 'Заявки'
                 break
 
+            case '/edit-realty/new':
+                title = 'Нове оголошення'
+                break
+
+            case (location.pathname.match(/^\/edit-realty\//) || {}).input:
+                title = 'Редагування оголошення'
+                break
+
             default:
                 title = '???'
         }
 
         const menuItem = (to, Icon, title) =>
-            <MenuItem component={Link} to={to} className={classes.menuItem}>
+            <MenuItem
+                to={to}
+                onClick={this.handleClose}
+                selected={location.pathname === to}
+                component={Link}
+                className={classes.menuItem} >
                 <ListItemIcon><Icon className={classes.icon} /></ListItemIcon>
                 <ListItemText classes={{ primary: classes.primary }} inset primary={title} />
             </MenuItem>
@@ -127,7 +140,11 @@ class TopMenu extends React.Component {
                             getContentAnchorEl={null}
                             open={openProfileMenu}
                             onClose={this.handleClose} >
-                            <MenuItem component={Link} to='/profile' >Профіль</MenuItem>
+                            <MenuItem
+                                selected={location.pathname === '/profile'}
+                                onClick={this.handleClose}
+                                component={Link}
+                                to='/profile' >Мій профіль</MenuItem>
                             <MenuItem onClick={logout}>Вийти</MenuItem>
                         </Menu>
                     </div>
@@ -137,6 +154,6 @@ class TopMenu extends React.Component {
     }
 }
 
-export default connect(null, (dispatch) => ({
+export default withRouter(connect(null, (dispatch) => ({
     logout: () => dispatch(unsetToken())
-}))(withRouter(withStyles(styles)(TopMenu)))
+}))(withStyles(styles)(TopMenu)))

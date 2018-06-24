@@ -1,21 +1,19 @@
 import mongoose from 'mongoose'
 
 const schema = mongoose.Schema({
-    email: {
+    forUser: {
         required: true,
-        type: String,
-        unique: true,
-        dropDups: true
+        type: mongoose.Schema.Types.ObjectId
     },
-    name: {
+    fromUser: {
         required: true,
-        type: String
+        type: mongoose.Schema.Types.ObjectId
     },
-    password: {
+    text: {
         required: true,
         type: String
     }
 })
 
-const model = mongoose.model('users', schema)
+const model = mongoose.model('reviews', schema)
 export default model

@@ -10,60 +10,25 @@ export const setToken = (token) =>
 export const unsetToken = () =>
     sessionStorage.removeItem('authToken')
 
-const createHandler = (method, url) => (data) => {
-    const httpMethod = method === 'del' ? 'delete' : method
-    return axios({method: httpMethod, url, data, headers: {Authorization: getToken()}})
-        .catch(err => {
-            const message = err.response && err.response.data.error
-            throw new SubmissionError({_error: message || err.toString()})
-        })
+const handler = (method, subroute, data) => {
+    const url = `/api${subroute}`
+    return axios({method, url, data, headers: {Authorization: getToken()}})
 }
 
-export default class Api {
-    constructor(root, version = 'api') {
-        this.version = version
-        this.root = root
-        this.routes = {}
-    }
+const formHandler = (method, subroute, data) =>
+    handler(method, subroute, data).catch(err => {
+        const message = err.response && err.response.data.error
+        throw new SubmissionError({_error: message || err.toString()})
+    })
 
-    _registerHandler(method, subroute) {
-        const segments = []
-        if (this.version) segments.push(this.version)
-        if (this.root) segments.push(this.root)
-        if (subroute) segments.push(subroute)
+export const postForm = (subroute, data) =>
+    formHandler('post', subroute, data)
 
-        const handler = createHandler(method, `/${segments.join('/')}/`)
-        if (subroute) {
-            this.routes[subroute] = this.routes[subroute] || handler
-            this.routes[subroute][method] = handler
-        } else this.routes[method] = handler
-        return handler
-    }
+export const get = (subroute, data) =>
+    handler('get', subroute, data)
 
-    get(subroute) {
-        return this._registerHandler('get', subroute)
-    }
+export const post = (subroute, data) =>
+    handler('post', subroute, data)
 
-    post(subroute) {
-        return this._registerHandler('post', subroute)
-    }
-
-    put(subroute) {
-        return this._registerHandler('put', subroute)
-    }
-
-    del(subroute) {
-        return this._registerHandler('del', subroute)
-    }
-
-    expose(exportsObj) {
-        for (let key in this.routes) {
-            exportsObj[key] = this.routes[key]
-        }
-        return this.routes
-    }
-
-    getExports() {
-        return this.routes
-    }
-}
+export const remove = (subroute, data) =>
+    handler('delete', subroute, data)

@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { setToken } from '../actions/auth.js'
-import authApi from '../api/auth.js'
+import { setToken } from '../actions/auth'
+import { login, register } from '../api/auth'
+import { loadCurrent } from '../actions/users'
 import LoginForm from './LoginForm.jsx'
-import RegistrationForm from './RegistrationForm.jsx'
+import LinearProgress from '@material-ui/core/LinearProgress'
+import RegistrationForm from './RegistrationForm'
 import Paper from '@material-ui/core/Paper'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
@@ -17,12 +20,21 @@ class Auth extends Component {
         this.state = { tab: 0 }
     }
 
+    componentWillMount() {
+      const { token, loadCurrent, currentUser } = this.props
+      if (token && !currentUser) loadCurrent()
+    }
+
     onSuccess({ data }, dispatch) {
         dispatch(setToken(data.token))
     }
 
     render() {
-        if (this.props.token) return this.props.children
+        const { token, children, currentUser } = this.props
+        if (token) {
+          if (currentUser) return children
+          else return <LinearProgress />
+        }
         const { tab } = this.state
         return (
             <Paper style={{ maxWidth: '600px', margin: 'auto', padding: '10px'}}>
@@ -39,11 +51,11 @@ class Auth extends Component {
                 </Tabs>
 
                 {tab === 0 ? <LoginForm
-                    onSubmit={authApi.login}
+                    onSubmit={login}
                     onSubmitSuccess={this.onSuccess} /> : null}
 
                 {tab === 1 ? <RegistrationForm
-                    onSubmit={authApi.register}
+                    onSubmit={register}
                     onSubmitSuccess={this.onSuccess} /> : null}
             </Paper>
         )
@@ -51,5 +63,8 @@ class Auth extends Component {
 }
 
 export default connect((store) => ({
-    token: store.auth.token
-}))(Auth)
+    token: store.auth.token,
+    currentUser: store.users.current
+}),
+  (dispatch) => bindActionCreators({ loadCurrent }, dispatch)
+)(Auth)

@@ -8,3 +8,7 @@ body {
     bottom: 15px;
     top: auto !important;
 }
+
+.uploadPictureContainer {
+    max-width: 200px;
+}
