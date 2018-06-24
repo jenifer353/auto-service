@@ -22,10 +22,17 @@ const Form = reduxForm({form: 'loginForm'})(({
     <Field
         name='name'
         type='text'
+        style={{ width: 'calc(100% - 150px)', marginRight: 10 }}
         component={TextField}
         label='Назва оголошення'
-        placeholder='Назва оголошення'
-        fullWidth />
+        placeholder='Назва оголошення' />
+    <Field
+        name='rate'
+        type='number'
+        style={{ width: '140px' }}
+        component={TextField}
+        label='Ціна за добу'
+        placeholder='Ціна за добу' />
     <Grid container spacing={16}>
       {initialImages.map(img =>
         <Paper key={img} style={{

@@ -18,6 +18,10 @@ const schema = mongoose.Schema({
     description: {
         required: true,
         type: String
+    },
+    rate: {
+        required: true,
+        type: Number
     }
 })
 

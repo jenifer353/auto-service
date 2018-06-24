@@ -18,13 +18,6 @@ class OwnRealty extends Component {
 
     const Buttons = ({ item }) =>
       <CardActions>
-        <Button
-            component={Link}
-            to={`/edit-realty/${item._id}`}
-            size="small"
-            color="primary">
-          Редагувати
-        </Button>
       </CardActions>
 
     return (
