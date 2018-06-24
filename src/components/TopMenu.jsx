@@ -52,34 +52,26 @@ class TopMenu extends React.Component {
 
     render = () => {
         const { anchorEl, menu } = this.state
-        const { location, logout, classes } = this.props
+        const { location, logout, classes, currentUser } = this.props
         const openMainMenu = menu === 'main'
         const openProfileMenu = menu === 'profile'
         let title = 'default'
 
         switch(location.pathname) {
             case '/':
-                title = 'Оголошення'
+                title = 'Список сервісів'
                 break
 
-            case '/own-realty':
-                title = 'Мої оголошення'
-                break
-
-            case '/own-booking':
-                title = 'Мої бронювання'
-                break
-
-            case '/profile':
+            case '/requests':
                 title = 'Заявки'
                 break
 
-            case '/edit-realty/new':
-                title = 'Нове оголошення'
+            case '/current-work':
+                title = 'Поточні роботи'
                 break
 
-            case (location.pathname.match(/^\/edit-realty\//) || {}).input:
-                title = 'Редагування оголошення'
+            case '/profile':
+                title = 'Профіль'
                 break
 
             default:
@@ -117,8 +109,8 @@ class TopMenu extends React.Component {
                         open={openMainMenu}
                         onClose={this.handleClose} >
                         { menuItem('/', HomeIcon, 'Список сервісів') }
-                        { menuItem('/requests', SmsIcon, 'Заявки') }
-                        { menuItem('/current', CarIcon, 'Поточні роботи') }
+                        { currentUser && menuItem('/requests', SmsIcon, 'Заявки') }
+                        { currentUser && menuItem('/current', CarIcon, 'Поточні роботи') }
                     </Menu>
 
                     <Typography variant="title" color="inherit" >{title}</Typography>
@@ -144,8 +136,8 @@ class TopMenu extends React.Component {
                                 selected={location.pathname === '/profile'}
                                 onClick={this.handleClose}
                                 component={Link}
-                                to='/profile' >Мій профіль</MenuItem>
-                            <MenuItem onClick={logout}>Вийти</MenuItem>
+                                to='/profile' >{ currentUser ? 'Профіль' : 'Вхід/Реєстрація' }</MenuItem>
+                            { currentUser && <MenuItem onClick={logout}>Вийти</MenuItem> }
                         </Menu>
                     </div>
                 </Toolbar>
@@ -154,6 +146,7 @@ class TopMenu extends React.Component {
     }
 }
 
-export default withRouter(connect(null, (dispatch) => ({
-    logout: () => dispatch(unsetToken())
-}))(withStyles(styles)(TopMenu)))
+export default withRouter(connect(
+    (store) => ({ currentUser: store.users.current }),
+    (dispatch) => ({ logout: () => dispatch(unsetToken()) })
+    )(withStyles(styles)(TopMenu)))

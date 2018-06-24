@@ -9,7 +9,7 @@ import CardActions from '@material-ui/core/CardActions'
 import { Link } from 'react-router-dom'
 
 
-class OwnRealty extends Component {
+class Requests extends Component {
   render() {
     const {
       loadItems,
@@ -63,4 +63,4 @@ export default connect(
     items: realty.ownItems
   }),
   (dispatch) => bindActionCreators({ loadItems, removeItem }, dispatch)
-)(OwnRealty)
+)(Requests)

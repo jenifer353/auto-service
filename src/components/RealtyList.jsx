@@ -17,7 +17,7 @@ export default class RealtyList extends Component {
         style={{ padding: 30, textAlign: 'center' }}
         variant='title'
         component='h2'>
-        Жодного оголошення
+        Жодного сервісу
       </Typography>
     )
 

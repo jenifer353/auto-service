@@ -7,8 +7,12 @@ const schema = mongoose.Schema({
         unique: true,
         dropDups: true
     },
+    isService: {
+        required: false,
+        type: Boolean
+    },
     address: {
-        required: true,
+        required: false,
         type: String
     },
     name: {

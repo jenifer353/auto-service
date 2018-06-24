@@ -17,7 +17,10 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd'
 class Auth extends Component {
     constructor(props) {
         super(props)
-        this.state = { tab: 0 }
+        this.state = {
+          tab: 0,
+          isService: false
+        }
     }
 
     componentWillMount() {
@@ -27,6 +30,16 @@ class Auth extends Component {
 
     onSuccess({ data }, dispatch) {
         dispatch(setToken(data.token))
+        loadCurrent()
+    }
+
+    onTypeChange = () =>
+      this.setState({ isService: !this.state.isService })
+
+    onRegistration = (data) => {
+      data.isService = this.state.isService
+      if (!data.isService) delete data.address
+      return register(data)
     }
 
     render() {
@@ -35,7 +48,7 @@ class Auth extends Component {
           if (currentUser) return children
           else return <LinearProgress />
         }
-        const { tab } = this.state
+        const { tab, isService } = this.state
         return (
             <Paper style={{ maxWidth: '600px', margin: 'auto', padding: '10px'}}>
                 <Typography variant='display1' align='center'>Авторизуйтесь аби продовжити!</Typography>
@@ -55,7 +68,9 @@ class Auth extends Component {
                     onSubmitSuccess={this.onSuccess} /> : null}
 
                 {tab === 1 ? <RegistrationForm
-                    onSubmit={register}
+                    isService={isService}
+                    onTypeChange={this.onTypeChange}
+                    onSubmit={this.onRegistration}
                     onSubmitSuccess={this.onSuccess} /> : null}
             </Paper>
         )
