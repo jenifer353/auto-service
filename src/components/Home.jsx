@@ -85,7 +85,7 @@ class Home extends Component {
               Бронювати
             </Button>
             <Dialog
-              open={!!openBookingModal}
+              open={openBookingModal === item._id}
               onClose={this.handleClose}
               aria-labelledby="alert-dialog-title"
               aria-describedby="alert-dialog-description">
