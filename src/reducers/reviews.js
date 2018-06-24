@@ -22,7 +22,7 @@ export default (state = initial, action) => {
         }
 
         case LOAD_REVIEWS_ABOUT_REJECTED: {
-            const error = action.payload.response.data ? action.payload.response.data.error : 'Server error'
+            const error = action.payload.data ? action.payload.data.error : 'Server error'
             NotificationManager.error(error, 'Не вдалось завантажити відгуки')
             return state
         }

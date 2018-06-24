@@ -29,3 +29,6 @@ export const get = (subroute, data) =>
 
 export const post = (subroute, data) =>
     handler('post', subroute, data)
+
+export const remove = (subroute, data) =>
+    handler('delete', subroute, data)

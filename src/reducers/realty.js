@@ -7,7 +7,8 @@ import {
     LOAD_REALTY_ITEM_REJECTED,
     LOAD_OWN_REALTY_PENDING,
     LOAD_OWN_REALTY_FULFILLED,
-    LOAD_OWN_REALTY_REJECTED
+    LOAD_OWN_REALTY_REJECTED,
+    REMOVE_REALTY_FULFILLED
 } from '../constants'
 import { NotificationManager } from 'react-notifications'
 
@@ -43,7 +44,7 @@ export default (state = initial, action) => {
         }
 
         case LOAD_REALTY_REJECTED: {
-            const error = action.payload.response.data ? action.payload.response.data.error : 'Server error'
+            const error = action.payload.data ? action.payload.data.error : 'Server error'
             NotificationManager.error(error, 'Список оголошень не вдалось завантажити')
             return {...state, loadingItems: false }
         }
@@ -63,7 +64,7 @@ export default (state = initial, action) => {
         }
 
         case LOAD_OWN_REALTY_REJECTED: {
-            const error = action.payload.response.data ? action.payload.response.data.error : 'Server error'
+            const error = action.payload.data ? action.payload.data.error : 'Server error'
             NotificationManager.error(error, 'Список своїх оголошень не вдалось завантажити')
             return {...state, loadingOwn: false }
         }
@@ -82,9 +83,15 @@ export default (state = initial, action) => {
         }
 
         case LOAD_REALTY_ITEM_REJECTED: {
-            const error = action.payload.response.data ? action.payload.response.data.error : 'Server error'
+            const error = action.payload.data ? action.payload.data.error : 'Server error'
             NotificationManager.error(error, 'Оголошення не вдалось завантажити')
             return {...state, loadingItem: false }
+        }
+
+        case REMOVE_REALTY_FULFILLED: {
+            const id = action.payload.data._id
+            const ownItems = state.ownItems.filter(i => i._id !== id)
+            return {...state, ownItems }
         }
 
         default: {

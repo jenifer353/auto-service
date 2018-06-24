@@ -17,10 +17,13 @@ class Home extends Component {
 
     const Buttons = ({ item }) =>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button
+          onClick={() => this.setState({ bookPopup: item._id })}
+          size="small"
+          color="primary">
           Бронювати
         </Button>
-        <Button size="small" color="primary">
+        <Button size="small"color="primary">
           Деталі
         </Button>
       </CardActions>

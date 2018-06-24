@@ -57,3 +57,13 @@ router.get('/:id', async (req, res) => {
     const item = await Realty.findOne({ _id: req.params.id })
     res.send(item)
 })
+
+router.delete('/:id', async (req, res) => {
+    try {
+        const removed = await Realty.remove({ _id: req.params.id, user: req.uid })
+        res.send({...removed, _id: req.params.id })
+    } catch(e) {
+        console.error(e)
+        res.status(500).send({ error: e.toString() })
+    }
+})

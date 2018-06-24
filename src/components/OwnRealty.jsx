@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { loadOwn as loadItems } from '../actions/realty'
+import { loadOwn as loadItems, removeItem } from '../actions/realty'
 import RealtyList from './RealtyList.jsx'
 import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
@@ -13,6 +13,7 @@ class OwnRealty extends Component {
   render() {
     const {
       loadItems,
+      removeItem,
       loadingItems,
       items
     } = this.props
@@ -26,7 +27,10 @@ class OwnRealty extends Component {
             color="primary">
           Редагувати
         </Button>
-        <Button size="small" color="secondary">
+        <Button
+          onClick={() => removeItem(item._id) }
+          size="small"
+          color="secondary">
           Видалити
         </Button>
       </CardActions>
@@ -58,5 +62,5 @@ export default connect(
     loadingItems: realty.loadingOwn,
     items: realty.ownItems
   }),
-  (dispatch) => bindActionCreators({ loadItems }, dispatch)
+  (dispatch) => bindActionCreators({ loadItems, removeItem }, dispatch)
 )(OwnRealty)
