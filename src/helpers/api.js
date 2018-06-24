@@ -15,12 +15,11 @@ const handler = (method, subroute, data) => {
     return axios({method, url, data, headers: {Authorization: getToken()}})
 }
 
-const formHandler = (method, subroute, data) => {
+const formHandler = (method, subroute, data) =>
     handler(method, subroute, data).catch(err => {
         const message = err.response && err.response.data.error
         throw new SubmissionError({_error: message || err.toString()})
     })
-}
 
 export const postForm = (subroute, data) =>
     formHandler('post', subroute, data)
