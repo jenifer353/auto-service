@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { load as loadItems, bookItem } from '../actions/realty'
+import { loadBooked as loadItems } from '../actions/realty'
 import RealtyList from './RealtyList.jsx'
 import Button from '@material-ui/core/Button'
 import CardActions from '@material-ui/core/CardActions'
+import { Link } from 'react-router-dom'
 
 
-class Home extends Component {
+class OwnRealty extends Component {
   render() {
     const {
       loadItems,
-      bookItem,
       loadingItems,
       items
     } = this.props
@@ -19,13 +19,11 @@ class Home extends Component {
     const Buttons = ({ item }) =>
       <CardActions>
         <Button
-          onClick={() => bookItem(item._id)}
-          size="small"
-          color="primary">
-          Бронювати
-        </Button>
-        <Button size="small"color="primary">
-          Деталі
+            component={Link}
+            to={`/edit-realty/${item._id}`}
+            size="small"
+            color="primary">
+          Редагувати
         </Button>
       </CardActions>
 
@@ -44,8 +42,8 @@ class Home extends Component {
 
 export default connect(
   ({ realty }) => ({
-    loadingItems: realty.loadingItems,
-    items: realty.items
+    loadingItems: realty.loadingBooked,
+    items: realty.bookedItems
   }),
-  (dispatch) => bindActionCreators({ loadItems, bookItem }, dispatch)
-)(Home)
+  (dispatch) => bindActionCreators({ loadItems }, dispatch)
+)(OwnRealty)

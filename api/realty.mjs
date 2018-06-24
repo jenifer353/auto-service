@@ -44,12 +44,22 @@ router.post('/book', async (req, res) => {
 })
 
 router.get('/', async (req, res) => {
-    const items = await Realty.find()
+    const items = await Realty.find({ booked: null })
     res.send(items)
 })
 
 router.get('/own', async (req, res) => {
     const items = await Realty.find({ user: req.uid })
+    res.send(items)
+})
+
+router.get('/book/:id', async (req, res) => {
+    const updated = await Realty.update({ _id: req.params.id }, {$set: {booked: req.uid} })
+    res.send({...updated, _id: req.params.id})
+})
+
+router.get('/booked', async (req, res) => {
+    const items = await Realty.find({ booked: req.uid })
     res.send(items)
 })
 

@@ -11,6 +11,7 @@ import Root from './components/Root'
 import Home from './components/Home'
 import EditPage from './components/EditPage'
 import OwnRealty from './components/OwnRealty'
+import OwnBooking from './components/OwnBooking'
 import ProfilePage from './components/ProfilePage'
 
 export default () =>
@@ -22,6 +23,7 @@ export default () =>
           <Route path='/edit-realty/:id' component={EditPage} />
           <Route path='/profile' component={ProfilePage} />
           <Route path='/own-realty' component={OwnRealty} />
+          <Route path='/own-booking' component={OwnBooking} />
         </Root>
       </MuiThemeProvider>
     </Router>
