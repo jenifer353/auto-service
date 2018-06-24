@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { setToken } from '../actions/auth'
 import { login, register } from '../api/auth'
-import { loadCurrent } from '../actions/users'
+import { loadCurrent } from '../actions/accounts'
 import LoginForm from './LoginForm.jsx'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import RegistrationForm from './RegistrationForm'
@@ -24,8 +24,8 @@ class Auth extends Component {
     }
 
     componentWillMount() {
-      const { token, loadCurrent, currentUser } = this.props
-      if (token && !currentUser) loadCurrent()
+      const { token, loadCurrent, currentAccount } = this.props
+      if (token && !currentAccount) loadCurrent()
     }
 
     onSuccess({ data }, dispatch) {
@@ -43,9 +43,9 @@ class Auth extends Component {
     }
 
     render() {
-        const { token, children, currentUser } = this.props
+        const { token, children, currentAccount } = this.props
         if (token) {
-          if (currentUser) return children
+          if (currentAccount) return children
           else return <LinearProgress />
         }
         const { tab, isService } = this.state
@@ -79,7 +79,7 @@ class Auth extends Component {
 
 export default connect((store) => ({
     token: store.auth.token,
-    currentUser: store.users.current
+    currentAccount: store.accounts.current
 }),
   (dispatch) => bindActionCreators({ loadCurrent }, dispatch)
 )(Auth)

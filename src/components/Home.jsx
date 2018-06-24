@@ -65,7 +65,7 @@ class Home extends Component {
 
   render() {
     const {
-      currentUser,
+      currentAccount,
       loadItems,
       bookItem,
       loadingItems,
@@ -75,7 +75,7 @@ class Home extends Component {
 
     const Buttons = ({ item }) =>
       <CardActions>
-        {currentUser._id !== item.user && (
+        {currentAccount._id !== item.account && (
           <div>
             <Button
               onClick={() => this.setState({ openBookingModal: item.id })}
@@ -111,8 +111,8 @@ class Home extends Component {
 }
 
 export default connect(
-  ({ realty, users }) => ({
-    currentUser: users.current,
+  ({ realty, accounts }) => ({
+    currentAccount: accounts.current,
     loadingItems: realty.loadingItems,
     items: realty.items
   }),

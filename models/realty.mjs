@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 
 const schema = mongoose.Schema({
-    user: {
+    account: {
         required: true,
         type: mongoose.Schema.Types.ObjectId
     },

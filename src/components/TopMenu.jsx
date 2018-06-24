@@ -14,7 +14,6 @@ import AccountCircle from '@material-ui/icons/AccountCircle'
 import HomeIcon from '@material-ui/icons/Home'
 import SmsIcon from '@material-ui/icons/Sms'
 import CarIcon from '@material-ui/icons/LocalCarWash'
-import VerifiedUserIcon from '@material-ui/icons/VerifiedUser'
 import MenuItem from '@material-ui/core/MenuItem'
 import { Link } from 'react-router-dom'
 import Menu from '@material-ui/core/Menu'
@@ -52,7 +51,7 @@ class TopMenu extends React.Component {
 
     render = () => {
         const { anchorEl, menu } = this.state
-        const { location, logout, classes, currentUser } = this.props
+        const { location, logout, classes, currentAccount } = this.props
         const openMainMenu = menu === 'main'
         const openProfileMenu = menu === 'profile'
         let title = 'default'
@@ -109,8 +108,8 @@ class TopMenu extends React.Component {
                         open={openMainMenu}
                         onClose={this.handleClose} >
                         { menuItem('/', HomeIcon, 'Список сервісів') }
-                        { currentUser && menuItem('/requests', SmsIcon, 'Заявки') }
-                        { currentUser && menuItem('/current', CarIcon, 'Поточні роботи') }
+                        { currentAccount && menuItem('/requests', SmsIcon, 'Заявки') }
+                        { currentAccount && menuItem('/current', CarIcon, 'Поточні роботи') }
                     </Menu>
 
                     <Typography variant="title" color="inherit" >{title}</Typography>
@@ -136,8 +135,8 @@ class TopMenu extends React.Component {
                                 selected={location.pathname === '/profile'}
                                 onClick={this.handleClose}
                                 component={Link}
-                                to='/profile' >{ currentUser ? 'Профіль' : 'Вхід/Реєстрація' }</MenuItem>
-                            { currentUser && <MenuItem onClick={logout}>Вийти</MenuItem> }
+                                to='/profile' >{ currentAccount ? 'Профіль' : 'Вхід/Реєстрація' }</MenuItem>
+                            { currentAccount && <MenuItem onClick={logout}>Вийти</MenuItem> }
                         </Menu>
                     </div>
                 </Toolbar>
@@ -147,6 +146,6 @@ class TopMenu extends React.Component {
 }
 
 export default withRouter(connect(
-    (store) => ({ currentUser: store.users.current }),
+    (store) => ({ currentAccount: store.accounts.current }),
     (dispatch) => ({ logout: () => dispatch(unsetToken()) })
     )(withStyles(styles)(TopMenu)))

@@ -1,5 +1,5 @@
 import Realty from '../models/realty'
-import Users from '../models/users'
+import Accounts from '../models/accounts'
 import express from 'express'
 import moment from 'moment'
 
@@ -7,13 +7,13 @@ const router = express.Router()
 export default router
 
 const format = async (items) => {
-    const uids = items.map(i => i.user)
-    const users = await Users.find({ _id: { $in: uids } })
+    const uids = items.map(i => i.account)
+    const accounts = await Accounts.find({ _id: { $in: uids } })
     const byId = {}
-    users.forEach(u => byId[u._id] = u)
+    accounts.forEach(u => byId[u._id] = u)
     return items.map(item => {
-        const { name: userName, email: userEmail } = byId[item.user]
-        return Object.assign({userName, userEmail}, item.toObject({ getters: true }))
+        const { name: accountName, email: accountEmail } = byId[item.account]
+        return Object.assign({accountName, accountEmail}, item.toObject({ getters: true }))
     })
 }
 
@@ -29,7 +29,7 @@ router.post('/', async (req, res) => {
 
     if (_id) {
         item = await Realty.findOne({_id})
-        if (item.user.toString() !== req.uid.toString()) {
+        if (item.account.toString() !== req.uid.toString()) {
             res.status(401).send({ error: "Access error" })
             return
         }
@@ -37,7 +37,7 @@ router.post('/', async (req, res) => {
         item.rate = rate
         item.images = images
         item.description = description
-    } else item = new Realty({ images, name, rate, description, user: req.uid })
+    } else item = new Realty({ images, name, rate, description, account: req.uid })
 
     const saved = await item.save()
     res.send(saved)
@@ -65,7 +65,7 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/own', async (req, res) => {
-    const items = await Realty.find({ user: req.uid })
+    const items = await Realty.find({ account: req.uid })
     const formated = await format(items)
     res.send(formated)
 })
@@ -84,7 +84,7 @@ router.get('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
     try {
-        const removed = await Realty.remove({ _id: req.params.id, user: req.uid })
+        const removed = await Realty.remove({ _id: req.params.id, account: req.uid })
         res.send({...removed, _id: req.params.id })
     } catch(e) {
         console.error(e)

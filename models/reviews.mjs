@@ -1,11 +1,11 @@
 import mongoose from 'mongoose'
 
 const schema = mongoose.Schema({
-    forUser: {
+    forAccount: {
         required: true,
         type: mongoose.Schema.Types.ObjectId
     },
-    fromUser: {
+    fromAccount: {
         required: true,
         type: mongoose.Schema.Types.ObjectId
     },

@@ -5,7 +5,7 @@ import {
 import { NotificationManager } from 'react-notifications'
 
 export const initial = {
-    byUser: {}
+    byAccount: {}
 }
 
 export default (state = initial, action) => {
@@ -14,8 +14,8 @@ export default (state = initial, action) => {
             const uid = action.payload.config.url.split('/').pop()
             return {
                 ...state,
-                byUser: {
-                    ...state.byUser,
+                byAccount: {
+                    ...state.byAccount,
                     [uid]: action.payload.data
                 }
             }

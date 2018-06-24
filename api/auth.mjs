@@ -1,4 +1,4 @@
-import Users from '../models/users'
+import Accounts from '../models/accounts'
 import express from 'express'
 import passwordHash from 'password-hash'
 import jwt from 'jsonwebtoken'
@@ -31,15 +31,15 @@ const createToken = (id) =>
 
 router.post('/login/', async (req, res) => {
     const { email, password } = req.body
-    const user = await Users.findOne({email})
+    const account = await Accounts.findOne({email})
 
-    if (!user)
-        return res.status(400).send({error: 'Невдалий вхід'})
+    if (!account)
+        return res.status(400).send({error: 'Такого користувача не знайдено'})
 
-    if (!passwordHash.verify(password, user.password))
+    if (!passwordHash.verify(password, account.password))
         return res.status(400).send({error: 'Невірний пароль'})
 
-    const token = createToken(user._id) // for 5 days
+    const token = createToken(account._id) // for 5 days
     res.send({token})
 })
 
@@ -49,12 +49,13 @@ router.post('/register/', async (req, res) => {
             email,
             address,
             name,
+            isService,
             password,
             confirmPassword
         } = req.body
-        const user = await Users.findOne({email})
+        const account = await Accounts.findOne({email})
 
-        if (user)
+        if (account)
             return res.status(400).send({error: 'Така електронною адресою вже існує'})
 
         if (!name)
@@ -63,8 +64,8 @@ router.post('/register/', async (req, res) => {
         if (password !== confirmPassword)
             return res.status(400).send({error: 'Паролі не співпадають'})
 
-        const newUser = new Users({ name, address, email, password: passwordHash.generate(password) })
-        const saved = await newUser.save()
+        const newAccount = new Accounts({ name, isService, address, email, password: passwordHash.generate(password) })
+        const saved = await newAccount.save()
         res.send({token: createToken(saved._id)})
     } catch(e) {
         console.error(e)

@@ -25,5 +25,5 @@ const schema = mongoose.Schema({
     }
 })
 
-const model = mongoose.model('users', schema)
+const model = mongoose.model('accounts', schema)
 export default model

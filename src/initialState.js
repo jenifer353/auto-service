@@ -1,10 +1,10 @@
 import { initial as auth } from './reducers/auth'
-import { initial as users } from './reducers/users'
+import { initial as accounts } from './reducers/accounts'
 import { initial as realty } from './reducers/realty'
 import { initial as reviews } from './reducers/reviews'
 
 export default () => ({
-    users,
+    accounts,
     realty,
     reviews,
     auth

@@ -31,7 +31,7 @@ const styles = theme => ({
   }
 })
 
-const RealtyItem = withStyles(styles)(({ classes, currentUser, item, buttonsComponent: Buttons }) =>
+const RealtyItem = withStyles(styles)(({ classes, currentAccount, item, buttonsComponent: Buttons }) =>
   <Grid item xs={12} sm={6} md={4}>
     <Card>
       <GridList className={classes.gridList} cols={2.5}>
@@ -48,10 +48,10 @@ const RealtyItem = withStyles(styles)(({ classes, currentUser, item, buttonsComp
         </Typography>
 
         <Typography gutterBottom component="div" style={{minHeight: 35}}>
-          {currentUser._id === item.user && (
+          {currentAccount._id === item.account && (
             <Chip label='Власне оголошення' className={classes.ownLabel} />
           )}
-          Розмістив: <b>{ item.userName }</b><br/>
+          Розмістив: <b>{ item.accountName }</b><br/>
         </Typography>
 
         <Typography component="p">
@@ -64,5 +64,5 @@ const RealtyItem = withStyles(styles)(({ classes, currentUser, item, buttonsComp
 )
 
 export default connect(
-  (store) => ({ currentUser: store.users.current })
+  (store) => ({ currentAccount: store.accounts.current })
 )(RealtyItem)

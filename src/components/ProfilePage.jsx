@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { loadCurrent } from '../actions/users'
+import { loadCurrent } from '../actions/accounts'
 import { loadAbout as loadReviewsAbout } from '../actions/reviews'
 import { withStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
@@ -88,8 +88,8 @@ class ProfilePage extends Component {
 
 export default connect(
   (store) => ({
-    reviews: store.users.current ? store.reviews.byUser[store.users.current._id] : null,
-    current: store.users.current
+    reviews: store.accounts.current ? store.reviews.byAccount[store.accounts.current._id] : null,
+    current: store.accounts.current
   }),
   (dispatch) => bindActionCreators({ loadCurrent, loadReviewsAbout }, dispatch)
 )(withStyles(styles)(ProfilePage))
