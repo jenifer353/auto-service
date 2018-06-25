@@ -1,27 +1,21 @@
 import mongoose from 'mongoose'
 
 const schema = mongoose.Schema({
-    account: {
+    user: {
         required: true,
         type: mongoose.Schema.Types.ObjectId
     },
-    booked: {
+    service: {
         required: false,
         type: mongoose.Schema.Types.ObjectId
     },
-    bookedTime: [Number, Number],
-    name: {
-        required: true,
-        type: String
-    },
-    images: [String],
     description: {
         required: true,
         type: String
     },
-    rate: {
-        required: true,
-        type: Number
+    price: {
+        type: Number,
+        required: true
     }
 })
 

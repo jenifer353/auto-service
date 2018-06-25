@@ -12,6 +12,10 @@ export default (state, action) => {
 
             if (action.meta.form === 'profileForm')
                 NotificationManager.error(action.payload._error, 'Невдалe збереження')
+
+            if (action.meta.form === 'requestForm')
+                NotificationManager.error(action.payload._error, 'Невдалe замовлення')
+
             break
         }
 

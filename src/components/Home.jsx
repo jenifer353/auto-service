@@ -18,15 +18,13 @@ class Home extends Component {
 
     const Buttons = ({ item }) =>
       <CardActions>
-        <div>
-          <Button
-            component={Link}
-            to={`/profile/${item._id}`}
-            size="small"
-            color="primary">
-            Детальніше
-          </Button>
-        </div>
+        <Button
+          component={Link}
+          to={`/profile/${item._id}`}
+          size="small"
+          color="primary">
+          Детальніше
+        </Button>
       </CardActions>
 
     return (

@@ -29,6 +29,9 @@ const ServiceItem = withStyles(styles)(({ classes, currentAccount, item, buttons
         <Typography gutterBottom variant="headline" component="h2">
           {item.name}
         </Typography>
+        <Typography component="p">
+          {item.address}
+        </Typography>
       </CardContent>
       <Buttons item={item} />
     </Card>

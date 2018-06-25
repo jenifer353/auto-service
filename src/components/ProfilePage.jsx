@@ -4,11 +4,15 @@ import { connect } from 'react-redux'
 import { load } from '../actions/accounts'
 import { loadAbout as loadReviewsAbout } from '../actions/reviews'
 import { withStyles } from '@material-ui/core/styles'
+import { Checkbox, TextField } from 'redux-form-material-ui'
+import { Field, reduxForm } from 'redux-form'
+import { save as saveRequest } from '../api/requests'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
 import CardHeader from '@material-ui/core/CardHeader'
+import CardActions from '@material-ui/core/CardActions'
 import Avatar from '@material-ui/core/Avatar'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import Button from '@material-ui/core/Button'
@@ -18,6 +22,12 @@ import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
+import FormHelperText from '@material-ui/core/FormHelperText'
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
+import DialogTitle from '@material-ui/core/DialogTitle'
 import { Link } from 'react-router-dom'
 
 const styles = theme => ({
@@ -43,7 +53,72 @@ const styles = theme => ({
   }
 })
 
+const RequestForm = reduxForm({form: 'requestForm'})(({
+  handleSubmit,
+  service,
+  onCancel
+}) =>
+  <form onSubmit={handleSubmit}>
+    {(service.works || []).map((work, i) =>
+      <Field
+        key={i}
+        component={Checkbox}
+        name={`w_${i}`}
+        label={`${work.name} - ${work.price} грн`}
+        />
+    )}
+    <Field
+      fullWidth
+      component={TextField}
+      name='comment'
+      placeholder='Ваш коментар'
+      />
+    <DialogActions>
+      <Button onClick={onCancel} type='reset' color="secondary">
+        Відмінити
+      </Button>
+      <Button color="primary" type='submit' autoFocus>
+        Замовити
+      </Button>
+    </DialogActions>
+  </form>
+)
+
 class ProfilePage extends Component {
+  constructor() {
+    super()
+    this.state = {
+      request: false
+    }
+  }
+
+  handleSubmit = (data) => {
+    const { profile } = this.props
+
+    let price = 0
+    const lines = []
+    Object.keys(data).forEach(k => {
+      const [type, i] = k.split('_')
+      if (type !== 'w') return
+      const w = profile.works[i]
+      price += w.price
+      lines.push(`${w.name} - ${w.price} грн`)
+    })
+
+    if (data.comment) {
+      if (lines.length > 0) lines.push('--------------')
+      lines.push(data.comment)
+    }
+
+    return saveRequest({
+      service: profile._id,
+      description: lines.join('\n'),
+      price
+    }).then(this.handleClose)
+  }
+
+  handleClose = () => this.setState({ request: false })
+
   componentWillMount() {
     const { load, loadReviewsAbout, match } = this.props
     const id = match.params.id
@@ -85,6 +160,34 @@ class ProfilePage extends Component {
                 </Table>
               )}
             </CardContent>
+
+            {profile.isService && id !== 'my' && (
+              <div>
+                <CardActions>
+                  <Button
+                    onClick={() => this.setState({ request: true }) }
+                    size="small"
+                    color="primary">
+                    Замовити послугу
+                  </Button>
+                </CardActions>
+
+                <Dialog
+                  fullScreen
+                  open={this.state.request}
+                  onClose={this.handleClose}
+                  aria-labelledby="alert-dialog-title"
+                  aria-describedby="alert-dialog-description">
+                  <DialogTitle id="alert-dialog-title">Замовлення</DialogTitle>
+                  <DialogContent>
+                    <RequestForm
+                      service={profile}
+                      onCancel={this.handleClose}
+                      onSubmit={this.handleSubmit} />
+                  </DialogContent>
+                </Dialog>
+              </div>
+            )}
           </div>
           {profile.images.length > 0 && (
             <CardMedia
@@ -121,8 +224,8 @@ class ProfilePage extends Component {
               <CardContent>
                   <Typography paragraph>
                     Після ремонту двигун працює як новий, ніяких посторонніх звуків. Обслуговуванням задоволений!
-                    </Typography>
-                  </CardContent>
+                  </Typography>
+              </CardContent>
             </Card>
           </div>
         )}
