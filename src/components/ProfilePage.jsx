@@ -11,7 +11,9 @@ import Typography from '@material-ui/core/Typography'
 import CardHeader from '@material-ui/core/CardHeader'
 import Avatar from '@material-ui/core/Avatar'
 import LinearProgress from '@material-ui/core/LinearProgress'
-
+import Button from '@material-ui/core/Button'
+import EditIcon from '@material-ui/icons/Edit'
+import { Link } from 'react-router-dom'
 
 const styles = theme => ({
   card: {
@@ -60,6 +62,16 @@ class ProfilePage extends Component {
             title="Live from space album cover"
           />
         </Card>
+
+        <Button
+            style={{ position: 'absolute', bottom: 20, right: 20 }}
+            variant="fab"
+            color="primary"
+            aria-label="Редагувати"
+            component={Link}
+            to='/edit-profile'>
+          <EditIcon />
+        </Button>
 
         <h1>Відгуки</h1>
         {!reviews && <LinearProgress />}
