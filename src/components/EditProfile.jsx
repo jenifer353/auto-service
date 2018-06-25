@@ -18,7 +18,7 @@ import { save } from '../api/accounts'
 const renderWorks = ({ fields }) =>
   <div>
     {fields.map((e, i) =>
-      <Grid container spacing={8} >
+      <Grid container spacing={8} key={i}>
         <Grid item xs={9}>
           <Field
               name={`${e}.name`}
@@ -145,7 +145,7 @@ class EditPage extends Component {
       }
       return save(item).then(() => {
         loadCurrent().then(() =>
-          this.props.history.push('/profile')
+          this.props.history.push('/profile/my')
         )
       })
     }

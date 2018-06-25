@@ -7,7 +7,6 @@ import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
-import Chip from '@material-ui/core/Chip'
 
 const styles = theme => ({
   gridList: {
@@ -29,10 +28,6 @@ const ServiceItem = withStyles(styles)(({ classes, currentAccount, item, buttons
       <CardContent>
         <Typography gutterBottom variant="headline" component="h2">
           {item.name}
-        </Typography>
-
-        <Typography component="p">
-          price here
         </Typography>
       </CardContent>
       <Buttons item={item} />

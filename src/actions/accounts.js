@@ -1,13 +1,13 @@
 import * as accountsApi from '../api/accounts'
 import {
     LOAD_SERVICES,
-    LOAD_ACCOUNTS,
+    LOAD_ACCOUNT,
     LOAD_CURRENT
 } from '../constants'
 
-export const load = () => ({
-    type: LOAD_ACCOUNTS,
-    payload: accountsApi.loadAll()
+export const load = (id) => ({
+    type: LOAD_ACCOUNT,
+    payload: accountsApi.load(id)
 })
 
 export const loadServices = () => ({

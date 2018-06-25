@@ -31,7 +31,7 @@ export default () =>
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <Root>
           <Route exact path='/' component={optionalAuth(Home)} />
-          <Route path='/profile' component={withAuth(ProfilePage)} />
+          <Route path='/profile/:id' component={withAuth(ProfilePage)} />
           <Route path='/edit-profile' component={withAuth(EditProfile)} />
           {/*<Route path='/requests' component={withAuth(Requests)} />*/}
         </Root>

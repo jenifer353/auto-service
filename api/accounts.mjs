@@ -36,7 +36,7 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.get('/', async (req, res) => {
-    const items = await Accounts.find()
-    res.send(items)
+router.get('/:id', async (req, res) => {
+    const item = await Accounts.findOne({ _id: req.params.id })
+    res.send(item)
 })

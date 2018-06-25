@@ -69,7 +69,7 @@ class TopMenu extends React.Component {
                 title = 'Поточні роботи'
                 break
 
-            case '/profile':
+            case '/profile/my':
                 title = 'Профіль'
                 break
 
@@ -136,10 +136,10 @@ class TopMenu extends React.Component {
                             open={openProfileMenu}
                             onClose={this.handleClose} >
                             <MenuItem
-                                selected={location.pathname === '/profile'}
+                                selected={location.pathname === '/profile/my'}
                                 onClick={this.handleClose}
                                 component={Link}
-                                to='/profile' >{ currentAccount ? 'Профіль' : 'Вхід/Реєстрація' }</MenuItem>
+                                to='/profile/my' >{ currentAccount ? 'Профіль' : 'Вхід/Реєстрація' }</MenuItem>
                             { currentAccount && <MenuItem onClick={logout}>Вийти</MenuItem> }
                         </Menu>
                     </div>

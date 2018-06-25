@@ -16,7 +16,7 @@ const generateModel = (c) => {
 
 generate('SET_AUTH_TOKEN')
 generate('UNSET_AUTH_TOKEN')
-generateModel('ACCOUNTS')
+generatePromise('LOAD_ACCOUNT')
 generatePromise('LOAD_SERVICES')
 generatePromise('LOAD_CURRENT')
 generatePromise('LOAD_REVIEWS_ABOUT')

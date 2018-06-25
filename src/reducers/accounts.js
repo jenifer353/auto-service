@@ -9,10 +9,17 @@ import {
 import { NotificationManager } from 'react-notifications'
 
 export const initial = {
+    byId: {},
     services: [],
     loadingServices: false,
     current: null,
     loadingCurrent: false
+}
+
+const addById = (state, items) => {
+    const obj = {}
+    items.forEach(i => obj[i._id] = i)
+    return {...state.byId, ...obj}
 }
 
 export default (state = initial, action) => {
@@ -22,10 +29,12 @@ export default (state = initial, action) => {
         }
 
         case LOAD_CURRENT_FULFILLED: {
+            const item = action.payload.data
             return {
                 ...state,
+                byId: addById(state, [item]),
                 loadingCurrent: false,
-                current: action.payload.data
+                current: item
             }
         }
 
@@ -40,10 +49,12 @@ export default (state = initial, action) => {
         }
 
         case LOAD_SERVICES_FULFILLED: {
+            const items = action.payload.data
             return {
                 ...state,
+                byId: addById(state, items),
                 loadingServices: false,
-                services: action.payload.data
+                services: items
             }
         }
 
