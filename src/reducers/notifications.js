@@ -10,8 +10,8 @@ export default (state, action) => {
             if (action.meta.form === 'registrationForm')
                 NotificationManager.error(action.payload._error, 'Невдала реєстрація')
 
-            if (action.meta.form === 'bookingForm')
-                NotificationManager.error(action.payload._error, 'Невдалe бронювання')
+            if (action.meta.form === 'profileForm')
+                NotificationManager.error(action.payload._error, 'Невдалe збереження')
             break
         }
 

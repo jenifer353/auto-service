@@ -4,14 +4,51 @@ import { loadCurrent } from '../actions/accounts'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Paper from '@material-ui/core/Paper'
-import { Field, reduxForm } from 'redux-form'
+import Grid from '@material-ui/core/Grid'
+import { Field, FieldArray, reduxForm } from 'redux-form'
 import { TextField } from 'redux-form-material-ui'
 import Button from '@material-ui/core/Button'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import ImageUploader from 'react-images-upload'
-import Grid from '@material-ui/core/Grid'
 import FormHelperText from '@material-ui/core/FormHelperText'
+import IconButton from '@material-ui/core/IconButton'
+import DeleteIcon from '@material-ui/icons/Delete'
 import { save } from '../api/accounts'
+
+const renderWorks = ({ fields }) =>
+  <div>
+    {fields.map((e, i) =>
+      <Grid container spacing={8} >
+        <Grid item xs={9}>
+          <Field
+              name={`${e}.name`}
+              type='text'
+              component={TextField}
+              placeholder='Назва роботи'
+              fullWidth />
+        </Grid>
+        <Grid item xs={2}>
+          <Field
+              name={`${e}.price`}
+              type='number'
+              component={TextField}
+              placeholder='Ціна роботи'
+              fullWidth />
+        </Grid>
+        <Grid item xs={1}>
+          <IconButton onClick={() => fields.remove(i)} aria-label="Видалити">
+            <DeleteIcon />
+          </IconButton>
+        </Grid>
+      </Grid>
+    )}
+    <Button
+        onClick={() => fields.push({ price: 0 })}
+        style={{ marginTop: '10px' }}
+        color='primary'>
+        Додати послугу
+    </Button>
+  </div>
 
 const Form = reduxForm({form: 'profileForm'})(({
   initialImages,
@@ -67,6 +104,13 @@ const Form = reduxForm({form: 'profileForm'})(({
         component={TextField}
         placeholder='Електронна адреса'
         fullWidth />
+    {account.isService && (
+      <div>
+        <FormHelperText>Список послуг</FormHelperText>
+        <FieldArray name='works' component={renderWorks} />
+      </div>
+    )}
+
     <Button
         style={{ marginTop: '20px' }}
         type='submit'

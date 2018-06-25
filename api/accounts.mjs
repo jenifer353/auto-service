@@ -15,19 +15,25 @@ router.get('/services', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-    const { images, name, address, email, _id } = req.body
-    if (!name || !email || !_id) {
-        res.status(400).send({ error: 'Wrong data' })
-        return
-    }
+    try {
+        const { images, name, works, address, email, _id } = req.body
+        if (!name || !email || !_id) {
+            res.status(400).send({ error: 'Wrong data' })
+            return
+        }
 
-    const item = await Accounts.findOne({ _id })
-    item.images = images
-    item.name = name
-    item.address = address
-    item.email = email
-    const saved = await item.save()
-    res.send(saved)
+        const item = await Accounts.findOne({ _id })
+        item.images = images
+        item.name = name
+        item.address = address
+        item.email = email
+        item.works = works
+        const saved = await item.save()
+        res.send(saved)
+    } catch(e) {
+        console.error(e)
+        res.status(400).send({ error: e.toString() })
+    }
 })
 
 router.get('/', async (req, res) => {

@@ -19,6 +19,16 @@ const schema = mongoose.Schema({
         required: true,
         type: String
     },
+    works: [{
+        name: {
+            type: String,
+            required: true
+        },
+        price: {
+            type: Number,
+            required: true
+        }
+    }],
     images: [String],
     password: {
         required: true,
