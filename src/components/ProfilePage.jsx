@@ -52,6 +52,7 @@ class ProfilePage extends Component {
 
   render() {
     const { classes, profile, reviews } = this.props
+    const id = this.props.match.params.id
     if (! profile) return <LinearProgress />
     return (
       <div>
@@ -92,15 +93,17 @@ class ProfilePage extends Component {
           )}
         </Card>
 
-        <Button
-            style={{ position: 'absolute', bottom: 20, right: 20 }}
-            variant="fab"
-            color="primary"
-            aria-label="Редагувати"
-            component={Link}
-            to='/edit-profile'>
-          <EditIcon />
-        </Button>
+        {id === 'my' && (
+          <Button
+              style={{ position: 'absolute', bottom: 20, right: 20 }}
+              variant="fab"
+              color="primary"
+              aria-label="Редагувати"
+              component={Link}
+              to='/edit-profile'>
+            <EditIcon />
+          </Button>
+        )}
 
         {profile.isService && (
           <div>
