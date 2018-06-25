@@ -1,7 +1,7 @@
 import * as requestsApi from '../api/requests'
-import {} from '../constants'
+import { LOAD_OWN_REQUESTS } from '../constants'
 
-// export const save = (dat) => ({
-//     type: SAVE_REQUEST,
-//     payload: requestsApi.save(id)
-// })
+export const loadOwn = () => ({
+    type: LOAD_OWN_REQUESTS,
+    payload: requestsApi.loadOwn()
+})

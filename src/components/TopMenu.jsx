@@ -11,7 +11,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import MenuIcon from '@material-ui/icons/Menu'
 import AccountCircle from '@material-ui/icons/AccountCircle'
-import HomeIcon from '@material-ui/icons/Home'
 import SmsIcon from '@material-ui/icons/Sms'
 import CarIcon from '@material-ui/icons/LocalCarWash'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -111,9 +110,8 @@ class TopMenu extends React.Component {
                         getContentAnchorEl={null}
                         open={openMainMenu}
                         onClose={this.handleClose} >
-                        { menuItem('/', HomeIcon, 'Список сервісів') }
+                        { menuItem('/', CarIcon, 'Список сервісів') }
                         { currentAccount && menuItem('/requests', SmsIcon, 'Заявки') }
-                        { currentAccount && menuItem('/current', CarIcon, 'Поточні роботи') }
                     </Menu>
 
                     <Typography variant="title" color="inherit" >{title}</Typography>

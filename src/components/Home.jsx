@@ -18,13 +18,15 @@ class Home extends Component {
 
     const Buttons = ({ item }) =>
       <CardActions>
-        <Button
-          component={Link}
-          to={`/profile/${item._id}`}
-          size="small"
-          color="primary">
-          Детальніше
-        </Button>
+        {!currentAccount.isService && (
+          <Button
+            component={Link}
+            to={`/profile/${item._id}`}
+            size="small"
+            color="primary">
+            Детальніше
+          </Button>
+        )}
       </CardActions>
 
     return (

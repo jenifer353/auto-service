@@ -22,11 +22,9 @@ import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import FormHelperText from '@material-ui/core/FormHelperText'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
-import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import { Link } from 'react-router-dom'
 
@@ -120,13 +118,13 @@ class ProfilePage extends Component {
   handleClose = () => this.setState({ request: false })
 
   componentWillMount() {
-    const { load, loadReviewsAbout, match } = this.props
+    const { load, match } = this.props
     const id = match.params.id
     if (id !== 'my') load(id)
   }
 
   render() {
-    const { classes, profile, reviews } = this.props
+    const { classes, profile } = this.props
     const id = this.props.match.params.id
     if (! profile) return <LinearProgress />
     return (
@@ -137,6 +135,7 @@ class ProfilePage extends Component {
               <Typography variant="headline">{ profile.name }</Typography>
               <Typography variant="subheading" color="textSecondary">
                 { profile.email }
+                { profile.isService && ' | ' + profile.address}
               </Typography>
 
               {profile.isService && (profile.works || []).length > 0 && (

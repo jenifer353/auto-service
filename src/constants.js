@@ -8,14 +8,9 @@ const generatePromise = (c) => {
     generate(c)
 }
 
-const generateModel = (c) => {
-    generatePromise(`LOAD_${c}`)
-    generatePromise(`SAVE_${c}`)
-    generatePromise(`REMOVE_${c}`)
-}
-
 generate('SET_AUTH_TOKEN')
 generate('UNSET_AUTH_TOKEN')
+generatePromise('LOAD_OWN_REQUESTS')
 generatePromise('LOAD_ACCOUNT')
 generatePromise('LOAD_SERVICES')
 generatePromise('LOAD_CURRENT')

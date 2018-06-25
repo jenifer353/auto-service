@@ -5,6 +5,7 @@ import 'react-notifications/lib/notifications.css'
 import { NotificationContainer } from 'react-notifications'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import TopMenu from './TopMenu.jsx'
+import Auth from './Auth.jsx'
 
 const styles = theme => ({
   body: {
@@ -18,10 +19,12 @@ const Root = ({ children, classes }) =>
   <div>
     <CssBaseline />
     <NotificationContainer />
-    <TopMenu />
-    <div className={classes.body}>
-      {children}
-    </div>
+    <Auth>
+      <TopMenu />
+      <div className={classes.body}>
+        {children}
+      </div>
+    </Auth>
   </div>
 
 export default withRouter(withStyles(styles)(Root))
